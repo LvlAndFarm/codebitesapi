@@ -33,7 +33,8 @@ router.get('/login', async function (req, res, next) {
             username: status.username,
             first_name: status.first_name,
             last_name: status.last_name,
-            type: status.type
+            type: status.type,
+            id: status.id
         }, 'notsosecret', {
             expiresIn: 10000000,
         });
@@ -102,8 +103,8 @@ SELECT
 *
 FROM users
 WHERE
-username = ?;
-    `, [username], async function(err, row) {
+username = ? or email = ?;
+    `, [username, username], async function(err, row) {
         if (err) {
             console.log(err)
         }
